@@ -2,7 +2,7 @@
 export CUDA_VISIBLE_DEVICES=0
 
 seq_len=336
-model=GPT4TS
+model=QWEN4TS
 
 for percent in 100
 do
@@ -11,6 +11,7 @@ do
 for lr in 0.0001
 do
 
+#removed argument -d_model 768
 python main.py \
     --root_path ./datasets/ETT-small/ \
     --data_path ETTh1.csv \
@@ -24,7 +25,6 @@ python main.py \
     --learning_rate $lr \
     --train_epochs 10 \
     --decay_fac 0.5 \
-    --d_model 768 \
     --n_heads 4 \
     --d_ff 768 \
     --dropout 0.3 \

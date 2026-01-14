@@ -4,7 +4,7 @@ from tqdm import tqdm
 from models.PatchTST import PatchTST
 from models.GPT4TS import GPT4TS
 from models.DLinear import DLinear
-
+from models.QWEN4TS import QWEN4TS
 
 import numpy as np
 import torch
@@ -22,6 +22,8 @@ import argparse
 import random
 
 warnings.filterwarnings('ignore')
+
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
 fix_seed = 2021
 random.seed(fix_seed)
@@ -128,8 +130,10 @@ for ii in range(args.itr):
     elif args.model == 'DLinear':
         model = DLinear(args, device)
         model.to(device)
-    else:
+    elif args.model == 'GPT4TS':
         model = GPT4TS(args, device)
+    elif args.model == 'QWEN4TS':
+        model = QWEN4TS(args, device)
     # mse, mae = test(model, test_data, test_loader, args, device, ii)
 
     params = model.parameters()
